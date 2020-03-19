@@ -22,7 +22,7 @@ services:
       - STORAGE=thumbor.storages.file_storage
       - SECURITY_KEY=54eiHEcUQTg4m3hHoX68cQ
     restart: always
-    networks: host
+    network_mode: "host"
   nginx-proxy:
     image: minimalcompact/thumbor-nginx-proxy-cache
     environment:
@@ -45,6 +45,6 @@ services:
       - "80:80"
       - "443:443"
     restart: always
-    networks: host
+    network_mode: "host"
 volumes:
   cache:
