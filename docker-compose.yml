@@ -5,7 +5,7 @@ services:
     environment:
       # VIRTUAL_HOST is picked up by nginx-proxy. Here it's set for localhost
       # but you usually need to point it to your domain, e.g. thumbor.example.com
-      - VIRTUAL_HOST=localhost,192.168.1.143,thumbor.hcmgis.vn
+      - VIRTUAL_HOST=localhost,thumbor.192.168.1.143.nip.io,thumbor.hcmgis.vn
       # THUMBOR_NUM_PROCESSES control how many processes run inside the container
       # Normally this is set in connection with the number of CPU cores
       # Note however that you can also use the docker-compose scale option to dynamically
