@@ -5,12 +5,12 @@ services:
     environment:
       # VIRTUAL_HOST is picked up by nginx-proxy. Here it's set for localhost
       # but you usually need to point it to your domain, e.g. thumbor.example.com
-      - VIRTUAL_HOST=thumborcdn.azurewebsites.net
+      - VIRTUAL_HOST=localhost,192.168.1.143.nip.io,thumbor.hcmgis.vn
       # THUMBOR_NUM_PROCESSES control how many processes run inside the container
       # Normally this is set in connection with the number of CPU cores
       # Note however that you can also use the docker-compose scale option to dynamically
       # scale your thumbor instances
-      - THUMBOR_NUM_PROCESSES=2
+      - THUMBOR_NUM_PROCESSES=4
       # this would allow CORS from any origin (you can restrict to specific origins if you want)
       - CORS_ALLOW_ORIGIN=*
       # returns a webp image if browser Accept headers match
@@ -22,8 +22,7 @@ services:
       - STORAGE=thumbor.storages.file_storage
       - SECURITY_KEY=54eiHEcUQTg4m3hHoX68cQ
     restart: always
-    networks:
-      - app
+    networks: host
   nginx-proxy:
     image: minimalcompact/thumbor-nginx-proxy-cache
     environment:
@@ -46,11 +45,6 @@ services:
       - "80:80"
       - "443:443"
     restart: always
-    networks:
-      - app
+    networks: host
 volumes:
   cache:
-    driver: local
-networks:
-  app:
-    driver: bridge
