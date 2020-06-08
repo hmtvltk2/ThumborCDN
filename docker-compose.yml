@@ -6,7 +6,6 @@ services:
       # VIRTUAL_HOST is picked up by nginx-proxy. Here it's set for localhost
       # but you usually need to point it to your domain, e.g. thumbor.example.com
       - VIRTUAL_HOST=localhost,thumbor.192.168.1.67.nip.io,thumbor.hcmgis.vn
-      - LETSENCRYPT_HOST=thumbor.hcmgis.vn
       # THUMBOR_NUM_PROCESSES control how many processes run inside the container
       # Normally this is set in connection with the number of CPU cores
       # Note however that you can also use the docker-compose scale option to dynamically
@@ -45,27 +44,12 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       # mapping cache folder, to persist it independently of the container
       - cache:/var/cache/nginx
-      - ./nginx/vhost.d:/etc/nginx/vhost.d:ro
-      - ./nginx/html:/usr/share/nginx/html
-      - ./nginx/certs:/etc/nginx/certs:ro
-    labels:
-      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     ports:
       - "80:80"
       - "443:443"
     restart: always
     networks:
       - app
-
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - ./nginx/certs:/etc/nginx/certs:rw
-      - ./nginx/html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./nginx/vhost.d/:/etc/nginx/vhost.d:rw
-    depends_on:
-      - nginx-proxy
 
 volumes:
   cache:
