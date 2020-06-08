@@ -21,6 +21,7 @@ services:
       - RESULT_STORAGE_STORES_UNSAFE=True
       - STORAGE=thumbor.storages.file_storage
       - SECURITY_KEY=54eiHEcUQTg4m3hHoX68cQ
+      - LOADER=thumbor.loaders.https_loader
     restart: always
     networks:
       - app
