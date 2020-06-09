@@ -18,8 +18,7 @@ services:
       - AUTO_WEBP=True
       # nginx-proxy does caching automatically, so no need to store the result storage cache
       # (this greatly speeds up and saves on CPU)
-      # - LOADER=thumbor.loaders.strict_https_loader
-
+      - LOADER=thumbor.loaders.strict_https_loader
       - RESULT_STORAGE=thumbor.result_storages.no_storage
       - RESULT_STORAGE_STORES_UNSAFE=True
       - STORAGE=thumbor.storages.file_storage
