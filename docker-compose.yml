@@ -19,6 +19,7 @@ services:
       # nginx-proxy does caching automatically, so no need to store the result storage cache
       # (this greatly speeds up and saves on CPU)
       # - LOADER=thumbor.loaders.strict_https_loader
+
       - RESULT_STORAGE=thumbor.result_storages.no_storage
       - RESULT_STORAGE_STORES_UNSAFE=True
       - STORAGE=thumbor.storages.file_storage
@@ -39,7 +40,7 @@ services:
       - PROXY_CACHE_SIZE=10g
       - PROXY_CACHE_MEMORY_SIZE=500m
       - PROXY_CACHE_INACTIVE=300m
-     
+      - HTTPS_METHOD=noredirect
     volumes:
       # this is essential for nginx-proxy to detect docker containers, scaling etc
       # see https://github.com/jwilder/nginx-proxy
