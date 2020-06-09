@@ -6,6 +6,7 @@ services:
       # VIRTUAL_HOST is picked up by nginx-proxy. Here it's set for localhost
       # but you usually need to point it to your domain, e.g. thumbor.example.com
       - VIRTUAL_HOST=localhost,thumbor.192.168.1.67.nip.io,thumbor.hcmgis.vn
+      - VIRTUAL_PROTO=https
       # THUMBOR_NUM_PROCESSES control how many processes run inside the container
       # Normally this is set in connection with the number of CPU cores
       # Note however that you can also use the docker-compose scale option to dynamically
@@ -17,11 +18,11 @@ services:
       - AUTO_WEBP=True
       # nginx-proxy does caching automatically, so no need to store the result storage cache
       # (this greatly speeds up and saves on CPU)
+      - LOADER=thumbor.loaders.strict_https_loader
       - RESULT_STORAGE=thumbor.result_storages.no_storage
       - RESULT_STORAGE_STORES_UNSAFE=True
       - STORAGE=thumbor.storages.file_storage
       - SECURITY_KEY=54eiHEcUQTg4m3hHoX68cQ
-      - LOADER=thumbor.loaders.strict_https_loader
     restart: always
     networks:
       - app
@@ -38,6 +39,7 @@ services:
       - PROXY_CACHE_SIZE=10g
       - PROXY_CACHE_MEMORY_SIZE=500m
       - PROXY_CACHE_INACTIVE=300m
+     
     volumes:
       # this is essential for nginx-proxy to detect docker containers, scaling etc
       # see https://github.com/jwilder/nginx-proxy
