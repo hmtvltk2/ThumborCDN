@@ -39,7 +39,7 @@ services:
       - PROXY_CACHE_SIZE=10g
       - PROXY_CACHE_MEMORY_SIZE=500m
       - PROXY_CACHE_INACTIVE=300m
-      - HTTPS_METHOD=noredirect
+      # - HTTPS_METHOD=noredirect
     volumes:
       # this is essential for nginx-proxy to detect docker containers, scaling etc
       # see https://github.com/jwilder/nginx-proxy
